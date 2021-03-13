@@ -1,5 +1,5 @@
-// TODO: Run observers on global or changed state?
-// TODO: Only path match instead of regex? Literal match?
+// TODO: Make sure changes run higher up in the tree still trigger subscriptions on local attributes.
+// Also, should observers only receive newState?
 const runObservers = (observers: { [key:string]: ((_: any) => any)[] }, path: string, state: any) => {
   Object.keys(observers).forEach((observerPath) => {
     if (path.match(observerPath)) {
@@ -44,7 +44,6 @@ export const createStore = (defaultStore?: any) => {
       let newState = state;
       for(let x = 0; x < fragments.length - 1; x++) {
         if (newState[fragments[x]] === undefined || typeof newState[fragments[x]] !== 'object') {
-          // TODO: Does this count as immutable
           newState[fragments[x]] = {}
         }
         newState = newState[fragments[x]];
@@ -69,11 +68,9 @@ export const createStore = (defaultStore?: any) => {
       const cleanedPath = cleanPath(path);
 
       observers[cleanedPath] = observers[cleanedPath] || [];
-      // TODO: Hash this?
       const index = observers[cleanedPath].push(observer);
       return {
         unsubscribe: () => {
-          // TODO: Stop this?
           delete observers[cleanedPath][index - 1];
         }
       }

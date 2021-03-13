@@ -1,5 +1,5 @@
 {
-  "name": "fletch",
+  "name": "fletch-state",
   "version": "1.0.0",
   "description": "A simple, somewhat opinionated state management API.",
   "main": "./dist/index.js",
@@ -16,6 +16,6 @@
   },
   "scripts": {
     "prepare": "tsc",
-    "test": "jest"
+    "test": "jest ./src"
   }
 }

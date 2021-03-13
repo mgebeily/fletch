@@ -1,5 +1,5 @@
 # fletch
-A tiny, simple, somewhat opinionated state management library. ~1KB.
+A tiny (~1KB with no dependencies), simple, somewhat opinionated state management library.
 
 # Motivation
 
@@ -10,21 +10,21 @@ As a thought experiment, I put together a library that mimics a form of state ma
 # Installation 
 
 ```
-npm install fletch
+npm install fletch-state
 
 or 
 
-yarn add fletch
+yarn add fletch-state
 ```
 
 Then import it:
 
 ```
 // CommonJS
-const { createStore } = require('fletch');
+const { createStore } = require('fletch-state');
 
 // ES6 imports
-import { createStore } from 'fletch';
+import { createStore } from 'fletch-state';
 ```
 
 # Usage
