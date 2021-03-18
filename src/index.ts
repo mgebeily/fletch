@@ -4,11 +4,11 @@ const runObservers = (observers: { [key:string]: ((_: any) => any)[] }, path: st
   Object.keys(observers).forEach((observerPath) => {
     if (path.match(observerPath)) {
       observers[observerPath].forEach((observerFunction) => {
-        observerFunction(state)
-      })
+        observerFunction(state);
+      });
     }
-  })
-}
+  });
+};
 
 const cleanPath = (path: string) => path.replace(/^\/+|\/+$/g, '').replace(/\/+/g, '/');
 
@@ -21,7 +21,7 @@ export const createStore = (defaultStore?: any): FletchState => {
       let newState = state;
       const fragments = cleanPath(path).split('/');
 
-      for(let x = 0; x < fragments.length; x++) {
+      for (let x = 0; x < fragments.length; x++) {
         if (fragments[x].length === 0) {
           continue;
         } else if (newState === undefined) {
@@ -33,18 +33,18 @@ export const createStore = (defaultStore?: any): FletchState => {
       return newState;
     },
     commit: (path: string, commitObject: any) => {
-      const cleanedPath = cleanPath(path)
-      const fragments = cleanedPath.split('/')
+      const cleanedPath = cleanPath(path);
+      const fragments = cleanedPath.split('/');
 
       if (fragments.length === 0) {
         state = typeof commitObject === 'function' ? commitObject(state) : commitObject;
-        runObservers(observers, cleanedPath, state)
+        runObservers(observers, cleanedPath, state);
       }
 
       let newState = state;
-      for(let x = 0; x < fragments.length - 1; x++) {
+      for (let x = 0; x < fragments.length - 1; x++) {
         if (newState[fragments[x]] === undefined || typeof newState[fragments[x]] !== 'object') {
-          newState[fragments[x]] = {}
+          newState[fragments[x]] = {};
         }
         newState = newState[fragments[x]];
       }
@@ -52,14 +52,14 @@ export const createStore = (defaultStore?: any): FletchState => {
       if (commitObject.constructor.name === 'AsyncFunction') {
         return commitObject(newState[fragments[fragments.length - 1]]).then((result: any) => {
           newState[fragments[fragments.length - 1]] = result;
-          runObservers(observers, cleanedPath, state)
+          runObservers(observers, cleanedPath, state);
         });
-      } else if (commitObject.constructor.name === 'Function') {
+      } if (commitObject.constructor.name === 'Function') {
         newState[fragments[fragments.length - 1]] = commitObject(newState[fragments[fragments.length - 1]]);
-        runObservers(observers, cleanedPath, state)
+        runObservers(observers, cleanedPath, state);
       } else {
         newState[fragments[fragments.length - 1]] = commitObject;
-        runObservers(observers, cleanedPath, state)
+        runObservers(observers, cleanedPath, state);
       }
 
       return state;
@@ -72,8 +72,8 @@ export const createStore = (defaultStore?: any): FletchState => {
       return {
         unsubscribe: () => {
           delete observers[cleanedPath][index - 1];
-        }
-      }
+        },
+      };
     },
     unsubscribeAll: (path?: string) => {
       if (path) {
@@ -81,9 +81,9 @@ export const createStore = (defaultStore?: any): FletchState => {
       } else {
         observers = [] as any;
       }
-    }
-  }
-}
+    },
+  };
+};
 
 export type FletchState = {
   unsubscribeAll: (path?: string) => void,

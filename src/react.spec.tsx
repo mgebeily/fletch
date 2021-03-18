@@ -1,7 +1,7 @@
 import React, { Children } from 'react'
 import '@testing-library/jest-dom'
 import { fireEvent, render } from '@testing-library/react';
-import { FletchContext, useCommit, useRetrieve } from './'
+import { FletchContext, useCommit, useRetrieve } from './react'
 
 const ChildComponent = ({ renderCounter }: { renderCounter: Function }) => {
   renderCounter()

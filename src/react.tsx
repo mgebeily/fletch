@@ -1,6 +1,6 @@
-import React, { useLayoutEffect, useMemo, useReducer, useRef } from 'react';
-import { createStore } from '..';
-import { FletchState } from '..'
+import React, { useLayoutEffect, useReducer } from 'react';
+import { createStore } from './';
+import { FletchState } from './'
 
 const Context = React.createContext<FletchState>({} as any)
 
