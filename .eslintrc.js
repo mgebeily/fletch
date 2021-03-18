@@ -25,9 +25,19 @@ module.exports = {
     'jest'
   ],
   rules: {
+    'import/extensions': [0],
+    'import/no-extraneous-dependencies': [0],
+    'react/jsx-filename-extension': [2, { 'extensions': ['.tsx'] }],
     'max-len': [2, 150, 4],
     'no-unused-vars': [2, {'argsIgnorePattern': '^_'}],
     'no-plusplus': [0],
     'no-continue': [0]
   },
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.ts', '.tsx']
+     }
+    }
+  }
 };
