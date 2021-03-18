@@ -100,3 +100,38 @@ unsubscribeAll() // Removes all observers.
 unsubscribeAll('/user/name') // Removes observers only on name.
 ```
 
+Subscriptions use the same matchers as the top level mutation listeners. This means they are done using the literal path that is passed in and not the object structure.
+
+# React
+
+Fletch comes with some react bindings to make things easier for those familiar with hooks. Simply call:
+
+```
+import { FletchContext } from 'fletch/react';
+
+const TopLevelComponent = ({ children }) => {
+  <FletchContext defaultValue={{ name: 'A name to use' }}>
+    { children }
+  </FletchContext>
+}
+```
+
+Then, in any children, you can use hooks for both commit and retrieve.
+
+```
+import { useCommit, useRetrieve } from 'fletch/react';
+
+const ChildComponent = () => {
+  const name = useRetrieve('/name')
+  const commit = useCommit()
+
+  return <>
+    <h1>{ name }</h1>
+    <button onClick={() => { commit('/name', name + ' again') }></button> 
+  </>
+}
+```
+
+The above will render name and re-render with the new state each time the button is clicked.
+
+Note that these hooks use the same subscribe pipeline as the rest of the library. Therefor, `unsubscribeAll` will remove listeners for the hooks as well. I suggest not using `unsubscribeAll` when using the React bindings for this library, and using `subscribe` would be a bit of a code smell.
