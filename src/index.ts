@@ -1,5 +1,12 @@
-// TODO: Make sure changes run higher up in the tree still trigger subscriptions on local attributes.
-// Also, should observers only receive newState?
+export type FletchState = {
+  unsubscribeAll: (_?: string) => void,
+  subscribe: (_: string, __: (___: any) => any) => {
+    unsubscribe: () => void,
+  },
+  commit: (_: string, __: any) => any,
+  retrieve: (_: string) => any,
+}
+
 const runObservers = (observers: { [key:string]: ((_: any) => any)[] }, path: string, state: any) => {
   Object.keys(observers).forEach((observerPath) => {
     if (path.match(observerPath)) {
@@ -84,12 +91,3 @@ export const createStore = (defaultStore?: any): FletchState => {
     },
   };
 };
-
-export type FletchState = {
-  unsubscribeAll: (path?: string) => void,
-  subscribe: (path: string, observer: (_: any) => any) => {
-    unsubscribe: () => void,
-  },
-  commit: (path: string, object: any) => any,
-  retrieve: (path: string) => any,
-}

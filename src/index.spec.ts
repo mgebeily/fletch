@@ -30,14 +30,11 @@ describe('#commit', () => {
   it('when a function is passed as a parameter it calls the function', () => {
     const { commit, retrieve } = createStore({ a: { b: { c: 'result' } } });
 
-    commit('/a/b/', (state: any) =>
-      // TODO: Is this acceptible?
-      // A: Yes. /b is different than /c
-      ({
-        ...state,
-        c: 'newresult',
-        d: 'additionalresult',
-      }));
+    commit('/a/b/', (state: any) => ({
+      ...state,
+      c: 'newresult',
+      d: 'additionalresult',
+    }));
 
     expect(retrieve('/')).toEqual({ a: { b: { c: 'newresult', d: 'additionalresult' } } });
   });
