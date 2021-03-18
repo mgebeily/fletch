@@ -12,7 +12,7 @@ const runObservers = (observers: { [key:string]: ((_: any) => any)[] }, path: st
 
 const cleanPath = (path: string) => path.replace(/^\/+|\/+$/g, '').replace(/\/+/g, '/');
 
-export const createStore = (defaultStore?: any) => {
+export const createStore = (defaultStore?: any): FletchState => {
   let observers: { [key:string]: ((_: any) => any)[] } = {};
   let state = { ...defaultStore };
 
@@ -83,4 +83,13 @@ export const createStore = (defaultStore?: any) => {
       }
     }
   }
+}
+
+export type FletchState = {
+  unsubscribeAll: (path?: string) => void,
+  subscribe: (path: string, observer: (_: any) => any) => {
+    unsubscribe: () => void,
+  },
+  commit: (path: string, object: any) => any,
+  retrieve: (path: string) => any,
 }
