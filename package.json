@@ -3,6 +3,9 @@
   "version": "1.0.2",
   "description": "A simple, somewhat opinionated state management API.",
   "main": "./dist/index.js",
+  "exports": {
+    "./react": "./dist/react"
+  },
   "types": "./dist/index.d.ts",
   "author": "Marc Gebeily",
   "license": "MIT",
