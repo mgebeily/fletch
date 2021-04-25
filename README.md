@@ -74,6 +74,7 @@ You can also get the entire state at once:
 
 ```
 retrieve('/')
+
 // Returns the state: { user: { id: 2, name: 'Not Marc' }}
 ```
 
@@ -107,7 +108,7 @@ Subscriptions use the same matchers as the top level mutation listeners. This me
 Fletch comes with some react bindings to make things easier for those familiar with hooks. Simply call:
 
 ```
-import { FletchContext } from 'fletch/react';
+import { FletchContext } from 'fletch/dist/react';
 
 const TopLevelComponent = ({ children }) => {
   <FletchContext defaultValue={{ name: 'A name to use' }}>
@@ -119,7 +120,7 @@ const TopLevelComponent = ({ children }) => {
 Then, in any children, you can use hooks for both commit and retrieve.
 
 ```
-import { useCommit, useRetrieve } from 'fletch/react';
+import { useCommit, useRetrieve } from 'fletch/dist/react';
 
 const ChildComponent = () => {
   const name = useRetrieve('/name')
@@ -134,4 +135,4 @@ const ChildComponent = () => {
 
 The above will render name and re-render with the new state each time the button is clicked.
 
-Note that these hooks use the same subscribe pipeline as the rest of the library. Therefor, `unsubscribeAll` will remove listeners for the hooks as well. I suggest not using `unsubscribeAll` when using the React bindings for this library, and using `subscribe` would be a bit of a code smell.
+Note that these hooks use the same subscribe pipeline as the rest of the library. Therefor, `unsubscribeAll` will remove listeners for the hooks as well. I suggest not using `unsubscribeAll` when using the React bindings for this library.

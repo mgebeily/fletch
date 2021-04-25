@@ -4,12 +4,13 @@
   "description": "A simple, somewhat opinionated state management API.",
   "main": "./dist/index.js",
   "exports": {
+    ".": "./dist/index.js",
     "./react": "./dist/react"
   },
   "types": "./dist/index.d.ts",
   "author": "Marc Gebeily",
   "license": "MIT",
-  "sideEffects": "false",
+  "sideEffects": false,
   "devDependencies": {
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
